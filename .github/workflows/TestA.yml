@@ -1,0 +1,28 @@
+name: TEST GITHUB
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+
+  GITHUB-Test:
+      runs-on: ubuntu-20.04
+      steps:
+      - uses: actions/checkout@v2
+      - name: Check space usage
+        if: (!cancelled())
+        run: |
+            cd configs
+            echo "=============================================="
+
+      - name: Pushes to another repository
+        uses: DevOpenWRT-Router/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+        with:
+          source-directory: 'Aconfigs/files'
+          target-directory: 'output'
+          destination-github-username: 'DevOpenWRT-Router'
+          destination-repository-name: 'Linksys_OpenWRT_Releases'
+          user-email: BuildBot2021@gmail.com
